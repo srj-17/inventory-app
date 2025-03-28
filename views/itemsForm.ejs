@@ -1,0 +1,10 @@
+<html>
+    <%- include("partials/head", {title: title}) %>
+    <body>
+        <form method="POST" action="/<%= categoryId %>/items/create">
+            <label for="itemName">Name the new item: </label>
+            <input type="text" id="itemName" name="itemName" required />
+            <button type="submit">Add Item</button>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+<html>
+    <%- include("partials/head", {title: title}); %>
+    <body>
+        <a href="/create">Add new category</a>
+        <% if (categories.length === 0) {%>
+            No categories found! 
+        <% } else { %>
+            <% categories.map(category => { %>
+                <li>
+                    <a href="/<%= category.id %>/items">
+                        <%= category.name %>
+                    </a>
+                </li>
+            <% }) %>
+        <% } %>
+    </body>
+</html>

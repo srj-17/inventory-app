@@ -1,0 +1,9 @@
+<html>
+    <%- include("partials/head", {title: title}) %>
+    <body>
+        <a href="/<%= categoryId %>/items/create">Create New Item</a>
+        <% items.map(item => { %>
+            <li><%= item.name %></li>
+        <% }) %>
+    </body>
+</html>
