@@ -29,7 +29,7 @@ async function getCategoryName(categoryId) {
     categoryId,
   ]);
 
-  return rows;
+  return rows[0].name;
 }
 
 async function updateCategoryName(id, newName) {

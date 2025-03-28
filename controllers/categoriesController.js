@@ -27,10 +27,13 @@ async function postCreateCategory(req, res) {
 
 async function getUpdateCategory(req, res) {
   const { categoryId } = req.params;
+  const categoryName = await getCategoryName(categoryId);
+  console.log(categoryName);
 
-  res.render("updateCategoryForm", {
+  return res.render("updateCategoryForm", {
     title: "Update category",
     categoryId: categoryId,
+    categoryName: categoryName,
   });
 }
 

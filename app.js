@@ -13,7 +13,6 @@ const itemsRouter = require("./routes/itemsRouter");
 const categoriesRouter = require("./routes/categoriesRouter");
 
 app.use("/", categoriesRouter);
-// matches styles.css as well
 app.use("/:categoryId/items", itemsRouter);
 
 // serve static assets

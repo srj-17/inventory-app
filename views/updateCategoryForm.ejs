@@ -1,8 +1,15 @@
 <html>
+    <% console.log("ran") %>
     <%- include("partials/head", {title: title}) %>
     <body>
         <form method="POST" action="/update/<%= categoryId %>">
-            <input type="text" name="categoryName" />
+            <label for="categoryName">Category Name: </label>
+            <input 
+            id="categoryName" 
+            type="text" 
+            name="categoryName" 
+            value=<%= categoryName %> />
+            <button type="submit">Change Name</button>
         </form>
     </body>
 </html>
