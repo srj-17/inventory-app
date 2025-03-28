@@ -1,0 +1,26 @@
+fix: Stop the calling of style.css on every reload
+
+Why this was happening?
+express.static(path) middleware redirects the request
+to static resources from *root* (ex: `/style.css`) to
+the path. 
+
+But since, in the views, I was requesting for `style.css`
+instead of `/style.css` for the style resources, this caused
+the browser to request for `style.css` from the current folder
+
+Hencewhy causing the error of matching into the categoryId that
+was seen. Easily fixed by just changing the path.
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch update
+# Changes to be committed:
+#	modified:   app.js
+#	modified:   controllers/categoriesController.js
+#	modified:   db/queries.js
+#	modified:   routes/categoriesRouter.js
+#	modified:   views/categoryForm.ejs
+#	modified:   views/partials/head.ejs
+#	modified:   views/updateCategoryForm.ejs
+#

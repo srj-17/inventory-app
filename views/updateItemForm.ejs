@@ -1,0 +1,15 @@
+<html>
+    <%- include("partials/head", {title: title}) %>
+    <body>
+        <form method="POST" action="/<%= categoryId %>/items/update/<%= itemId %>">
+            <label for="itemName">Item Name:</label>
+            <input 
+                id="itemName" 
+                type="text" 
+                name="itemName" 
+                value=<%= itemName %> 
+            />
+            <button type="submit">Change Name</button>
+        </form>
+    </body>
+</html>

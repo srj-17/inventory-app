@@ -1,4 +1,9 @@
-const { getItemsWithId, addNewItem } = require("../db/queries");
+const {
+  getItemsWithId,
+  addNewItem,
+  getItemName,
+  updateItemName,
+} = require("../db/queries");
 
 async function getItems(req, res) {
   const { categoryId } = req.params;
@@ -20,8 +25,30 @@ async function postCreateItem(req, res) {
   res.redirect(`/${categoryId}/items`);
 }
 
+async function getUpdateItem(req, res) {
+  const { categoryId, itemId } = req.params;
+  const itemName = await getItemName(itemId);
+
+  res.render("updateItemForm", {
+    title: "Update Title",
+    categoryId: categoryId,
+    itemId: itemId,
+    itemName: itemName,
+  });
+}
+
+async function postUpdateItem(req, res) {
+  const { categoryId, itemId } = req.params;
+  const { itemName } = req.body;
+
+  await updateItemName(itemId, itemName);
+  res.redirect(`/${categoryId}/items`);
+}
+
 module.exports = {
   getItems,
   getCreateItem,
   postCreateItem,
+  getUpdateItem,
+  postUpdateItem,
 };

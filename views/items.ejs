@@ -3,7 +3,12 @@
     <body>
         <a href="/<%= categoryId %>/items/create">Create New Item</a>
         <% items.map(item => { %>
-            <li><%= item.name %></li>
+            <li>
+                <%= item.name %> 
+                <a href="/<%= categoryId %>/items/update/<%= item.id %>">
+                    Change Name
+                </a>
+            </li>
         <% }) %>
     </body>
 </html>
