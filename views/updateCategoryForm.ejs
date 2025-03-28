@@ -1,6 +1,7 @@
 <html>
     <%- include("partials/head", {title: title}) %>
     <body>
+        <%- include("partials/errors") %>
         <form method="POST" action="/update/<%= categoryId %>">
             <label for="categoryName">Category Name: </label>
             <input 

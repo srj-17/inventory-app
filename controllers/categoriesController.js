@@ -1,3 +1,5 @@
+const { body, validationResult } = require("express-validator");
+
 const {
   getAllCategories,
   addNewCategory,
@@ -6,6 +8,13 @@ const {
   deleteCategory,
   getItemsWithId,
 } = require("../db/queries");
+
+const categoryValidator = [
+  body("categoryName")
+    .trim()
+    .notEmpty()
+    .withMessage("Category Name shouldn't be empty"),
+];
 
 async function getCategories(req, res) {
   const categories = await getAllCategories();
@@ -20,12 +29,23 @@ function getCreateCategory(req, res) {
   res.render("categoryForm", { title: "Create New Category" });
 }
 
-async function postCreateCategory(req, res) {
-  const { categoryName } = req.body;
-  await addNewCategory(categoryName);
+const postCreateCategory = [
+  categoryValidator,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("categoryForm", {
+        title: "Create New Category",
+        errors: errors.array(),
+      });
+    }
 
-  res.redirect("/");
-}
+    const { categoryName } = req.body;
+    await addNewCategory(categoryName);
+
+    res.redirect("/");
+  },
+];
 
 async function getUpdateCategory(req, res) {
   const { categoryId } = req.params;
@@ -38,13 +58,26 @@ async function getUpdateCategory(req, res) {
   });
 }
 
-async function postUpdateCategory(req, res) {
-  const { categoryId } = req.params;
-  const { categoryName } = req.body;
+const postUpdateCategory = [
+  categoryValidator,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("updateCategoryForm", {
+        title: "Update category",
+        categoryId: categoryId,
+        categoryName: categoryName,
+        errors: errors,
+      });
+    }
 
-  updateCategoryName(categoryId, categoryName);
-  res.redirect("/");
-}
+    const { categoryId } = req.params;
+    const { categoryName } = req.body;
+
+    updateCategoryName(categoryId, categoryName);
+    res.redirect("/");
+  },
+];
 
 async function postDeleteCategory(req, res) {
   const { categoryId } = req.params;

@@ -1,3 +1,4 @@
+const { body, validationResult } = require("express-validator");
 const {
   getItemsWithId,
   addNewItem,
@@ -5,6 +6,10 @@ const {
   updateItemName,
   deleteItem,
 } = require("../db/queries");
+
+const itemsValidator = [
+  body("itemName").trim().notEmpty().withMessage("Item name can't be empty"),
+];
 
 async function getItems(req, res) {
   const { categoryId } = req.params;
@@ -15,16 +20,29 @@ async function getItems(req, res) {
 
 function getCreateItem(req, res) {
   const { categoryId } = req.params;
-  res.render("itemsForm", { categoryId: categoryId, title: "Create Item" });
+  res.render("itemsForm", { categoryId: categoryId, title: "Add Item" });
 }
 
-async function postCreateItem(req, res) {
-  const { categoryId } = req.params;
-  const { itemName } = req.body;
-  await addNewItem(categoryId, itemName);
+const postCreateItem = [
+  itemsValidator,
+  async (req, res) => {
+    const errors = validationResult(req);
+    console.log(errors);
+    const { categoryId } = req.params;
+    if (!errors.isEmpty()) {
+      return res.status(400).render("itemsForm", {
+        title: "Add Item",
+        categoryId: categoryId,
+        errors: errors.array(),
+      });
+    }
 
-  res.redirect(`/${categoryId}/items`);
-}
+    const { itemName } = req.body;
+    await addNewItem(categoryId, itemName);
+
+    res.redirect(`/${categoryId}/items`);
+  },
+];
 
 async function getUpdateItem(req, res) {
   const { categoryId, itemId } = req.params;
@@ -38,13 +56,26 @@ async function getUpdateItem(req, res) {
   });
 }
 
-async function postUpdateItem(req, res) {
-  const { categoryId, itemId } = req.params;
-  const { itemName } = req.body;
+const postUpdateItem = [
+  itemsValidator,
+  async (req, res) => {
+    const errors = validationResult(req);
+    const { categoryId } = req.params;
+    if (!errors.isEmpty()) {
+      return res.status(400).render("updateItemForm", {
+        title: "Update Title",
+        categoryId: categoryId,
+        itemId: itemId,
+        itemName: itemName,
+        errors: errors.array(),
+      });
+    }
+    const { itemName } = req.body;
 
-  await updateItemName(itemId, itemName);
-  res.redirect(`/${categoryId}/items`);
-}
+    await updateItemName(itemId, itemName);
+    res.redirect(`/${categoryId}/items`);
+  },
+];
 
 async function postDeleteItem(req, res) {
   const { itemId, categoryId } = req.params;
