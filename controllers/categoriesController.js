@@ -20,14 +20,6 @@ async function postCreateCategory(req, res) {
   res.redirect("/");
 }
 
-async function postCreateItem(req, res) {
-  const { itemName } = req.body;
-  const { categoryId } = req.params;
-  await addNewItem(categoryId, itemName);
-
-  res.redirect(`/${categoryId}/items`);
-}
-
 module.exports = {
   getCategories,
   getCreateCategory,
