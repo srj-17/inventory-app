@@ -1,0 +1,8 @@
+<html>
+    <%- include("partials/head", {title: title}) %>
+    <body>
+        <form method="POST" action="/update/<%= categoryId %>">
+            <input type="text" name="categoryName" />
+        </form>
+    </body>
+</html>

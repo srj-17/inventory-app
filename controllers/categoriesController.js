@@ -1,4 +1,9 @@
-const { getAllCategories, addNewCategory } = require("../db/queries");
+const {
+  getAllCategories,
+  addNewCategory,
+  getCategoryName,
+  updateCategoryName,
+} = require("../db/queries");
 
 async function getCategories(req, res) {
   const categories = await getAllCategories();
@@ -20,8 +25,27 @@ async function postCreateCategory(req, res) {
   res.redirect("/");
 }
 
+async function getUpdateCategory(req, res) {
+  const { categoryId } = req.params;
+
+  res.render("updateCategoryForm", {
+    title: "Update category",
+    categoryId: categoryId,
+  });
+}
+
+async function postUpdateCategory(req, res) {
+  const { categoryId } = req.params;
+  const { categoryName } = req.body;
+
+  updateCategoryName(categoryId, categoryName);
+  res.redirect("/");
+}
+
 module.exports = {
   getCategories,
   getCreateCategory,
   postCreateCategory,
+  getUpdateCategory,
+  postUpdateCategory,
 };

@@ -24,9 +24,23 @@ async function addNewItem(categoryId, itemName) {
   ]);
 }
 
+async function getCategoryName(categoryId) {
+  const { rows } = await pool.query("SELECT name FROM categories WHERE id=$1", [
+    categoryId,
+  ]);
+
+  return rows;
+}
+
+async function updateCategoryName(id, newName) {
+  await pool.query("UPDATE categories SET name=$1 WHERE id=$2", [newName, id]);
+}
+
 module.exports = {
   getAllCategories,
   getItemsWithId,
   addNewCategory,
   addNewItem,
+  getCategoryName,
+  updateCategoryName,
 };

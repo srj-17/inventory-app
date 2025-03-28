@@ -9,12 +9,14 @@ app.use(express.urlencoded({ extended: true }));
 // set the views engine
 app.set("view engine", "ejs");
 
-const categoriesRouter = require("./routes/categoriesRouter");
 const itemsRouter = require("./routes/itemsRouter");
+const categoriesRouter = require("./routes/categoriesRouter");
 
 app.use("/", categoriesRouter);
+// matches styles.css as well
 app.use("/:categoryId/items", itemsRouter);
 
+// serve static assets
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("*", (req, res) => {

@@ -8,7 +8,6 @@ async function getItems(req, res) {
 }
 
 function getCreateItem(req, res) {
-  console.log(req.params);
   const { categoryId } = req.params;
   res.render("itemsForm", { categoryId: categoryId, title: "Create Item" });
 }
