@@ -2,6 +2,7 @@
     <%- include("partials/head", {title: title}); %>
     <body>
         <a href="/create">Add new category</a>
+        <%- include("partials/errors") %>
         <% if (categories.length === 0) {%>
             No categories found! 
         <% } else { %>
@@ -11,6 +12,9 @@
                         <%= category.name %>
                     </a>
                     <a href="/update/<%= category.id %>">Change name</a>
+                    <form method="POST" action="/delete/<%= category.id %>">
+                        <button type="submit">Delete Category</button>
+                    </form>
                 </li>
             <% }) %>
         <% } %>

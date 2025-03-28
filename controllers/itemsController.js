@@ -3,6 +3,7 @@ const {
   addNewItem,
   getItemName,
   updateItemName,
+  deleteItem,
 } = require("../db/queries");
 
 async function getItems(req, res) {
@@ -45,10 +46,18 @@ async function postUpdateItem(req, res) {
   res.redirect(`/${categoryId}/items`);
 }
 
+async function postDeleteItem(req, res) {
+  const { itemId, categoryId } = req.params;
+  await deleteItem(itemId);
+
+  return res.redirect(`/${categoryId}/items`);
+}
+
 module.exports = {
   getItems,
   getCreateItem,
   postCreateItem,
   getUpdateItem,
   postUpdateItem,
+  postDeleteItem,
 };

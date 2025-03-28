@@ -3,6 +3,8 @@ const {
   addNewCategory,
   getCategoryName,
   updateCategoryName,
+  deleteCategory,
+  getItemsWithId,
 } = require("../db/queries");
 
 async function getCategories(req, res) {
@@ -28,7 +30,6 @@ async function postCreateCategory(req, res) {
 async function getUpdateCategory(req, res) {
   const { categoryId } = req.params;
   const categoryName = await getCategoryName(categoryId);
-  console.log(categoryName);
 
   return res.render("updateCategoryForm", {
     title: "Update category",
@@ -45,10 +46,28 @@ async function postUpdateCategory(req, res) {
   res.redirect("/");
 }
 
+async function postDeleteCategory(req, res) {
+  const { categoryId } = req.params;
+  const items = await getItemsWithId(categoryId);
+  const categories = await getAllCategories();
+
+  if (items.length !== 0) {
+    return res.render("categories", {
+      title: "Categories",
+      categories: categories,
+      errors: [{ msg: "Cannot delete category with items in it" }],
+    });
+  }
+
+  await deleteCategory(categoryId);
+  res.redirect("/");
+}
+
 module.exports = {
   getCategories,
   getCreateCategory,
   postCreateCategory,
   getUpdateCategory,
   postUpdateCategory,
+  postDeleteCategory,
 };

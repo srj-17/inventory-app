@@ -8,6 +8,12 @@
                 <a href="/<%= categoryId %>/items/update/<%= item.id %>">
                     Change Name
                 </a>
+                <form 
+                    method="POST" 
+                    action="/<%= categoryId %>/items/delete/<%= item.id %>"
+                >
+                    <button type="submit">Delete Item</button>
+                </form>
             </li>
         <% }) %>
     </body>
