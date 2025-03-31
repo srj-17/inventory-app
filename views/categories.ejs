@@ -1,22 +1,37 @@
 <html>
     <%- include("partials/head", {title: title}); %>
     <body>
-        <a href="/create">Add new category</a>
-        <%- include("partials/errors") %>
-        <% if (categories.length === 0) {%>
-            No categories found! 
-        <% } else { %>
-            <% categories.map(category => { %>
-                <li>
-                    <a href="/<%= category.id %>/items">
-                        <%= category.name %>
-                    </a>
-                    <a href="/update/<%= category.id %>">Change name</a>
-                    <form method="POST" action="/delete/<%= category.id %>">
-                        <button type="submit">Delete Category</button>
-                    </form>
-                </li>
-            <% }) %>
-        <% } %>
+        <%- include("partials/heading") %>
+        <main>
+            <%- include("partials/errors") %>
+            <div class="add-new-category-container">
+                <a href="/create">Add new category</a>
+            </div>
+            <div class="categories-container">
+                <% if (categories.length === 0) {%>
+                No categories found! 
+                <% } else { %>
+                <% categories.map(category => { %>
+                <div class="category-container">
+                    <div class="category-name-container">
+                        <span class="category-name-bg"><%= category.name %></span>
+                        <a class="category-name" href="/<%= category.id %>/items">
+                            <%= category.name %>
+                        </a>
+                    </div>
+                    <div class="category-seperator"></div>
+                    <div class="category-options">
+                        <div class="category-change-name">
+                            <a href="/update/<%= category.id %>">Change name</a>
+                        </div>
+                        <form method="POST" action="/delete/<%= category.id %>">
+                            <button type="submit">Delete Category</button>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+                <% } %>
+            </div>
+        </main>
     </body>
 </html>

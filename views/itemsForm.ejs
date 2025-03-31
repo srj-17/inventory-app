@@ -1,6 +1,7 @@
 <html>
     <%- include("partials/head", {title: title}) %>
     <body>
+        <%- include("partials/heading") %>
         <%- include("partials/errors") %>
         <form method="POST" action="/<%= categoryId %>/items/create">
             <label for="itemName">Name the new item: </label>

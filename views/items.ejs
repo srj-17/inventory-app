@@ -1,8 +1,10 @@
 <html>
     <%- include("partials/head", {title: title}) %>
     <body>
-        <a href="/<%= categoryId %>/items/create">Create New Item</a>
-        <% items.map(item => { %>
+        <%- include("partials/heading") %>
+        <main>
+            <a href="/<%= categoryId %>/items/create">Create New Item</a>
+            <% items.map(item => { %>
             <li>
                 <%= item.name %> 
                 <a href="/<%= categoryId %>/items/update/<%= item.id %>">
@@ -11,10 +13,11 @@
                 <form 
                     method="POST" 
                     action="/<%= categoryId %>/items/delete/<%= item.id %>"
-                >
+                    >
                     <button type="submit">Delete Item</button>
                 </form>
             </li>
-        <% }) %>
+            <% }) %>
+        </main>
     </body>
 </html>

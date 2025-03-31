@@ -1,3 +1,160 @@
+/* resets */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-size: 1rem;
+}
+
+/* root element */
+:root {
+  --bg: #1f2041;
+  --text: #d0ceba;
+  --primary: white;
+  --accent: hsl(from var(--bg) h s 80);
+  --secondary: yellow;
+
+  --std-seperator-width: 2px;
+  --card-dim: 250px;
+}
+
 body {
-  background: teal;
+  background: var(--bg);
+  border: inset 5px var(--accent);
+  color: var(--text);
+  padding: 0px 16px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* heading styling */
+heading {
+  cursor: default;
+  padding: 16px 0;
+}
+
+heading::after {
+  content: "";
+  background: var(--accent);
+  display: block;
+  height: var(--std-seperator-width);
+
+  bottom: 0;
+  transform: translateY(50%);
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* main styling */
+main {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.add-new-category-container {
+  font-size: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.categories-container,
+.items-container {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-dim), 1fr));
+}
+
+.category-container {
+  width: 100%;
+  min-height: var(--card-dim);
+  padding: 8px;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+}
+
+.category-name-container {
+  flex: 1;
+  display: grid;
+  place-content: stretch;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.category-name {
+  display: grid;
+  place-items: center;
+
+  font-size: 3rem;
+  transition: transform 0.5s;
+}
+
+.category-name:hover {
+  transform: scale(1.1);
+}
+
+.category-name-bg {
+  position: absolute;
+  cursor: default;
+  z-index: -1;
+  opacity: 0.03;
+  text-shadow: 2px 2px 8px var(--text);
+
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-size: 5rem;
+  rotate: -45deg;
+}
+
+.category-seperator {
+  height: 2px;
+  background: var(--accent);
+}
+
+.category-options {
+  display: grid;
+  grid-auto-flow: column;
+
+  padding: 10px 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+a:active {
+  color: var(--secondary);
 }
