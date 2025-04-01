@@ -76,10 +76,10 @@ const postUpdateCategory = [
 
     if (pass === "supersecretpassword") {
       updateCategoryName(categoryId, categoryName);
-      res.redirect("/");
+      return res.redirect("/");
     }
 
-    return res.status(400).render("updateCategoryForm", {
+    res.status(400).render("updateCategoryForm", {
       title: "Update category",
       categoryId: categoryId,
       categoryName: categoryName,
