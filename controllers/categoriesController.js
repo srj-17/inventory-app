@@ -72,10 +72,19 @@ const postUpdateCategory = [
     }
 
     const { categoryId } = req.params;
-    const { categoryName } = req.body;
+    const { categoryName, pass } = req.body;
 
-    updateCategoryName(categoryId, categoryName);
-    res.redirect("/");
+    if (pass === "supersecretpassword") {
+      updateCategoryName(categoryId, categoryName);
+      res.redirect("/");
+    }
+
+    return res.status(400).render("updateCategoryForm", {
+      title: "Update category",
+      categoryId: categoryId,
+      categoryName: categoryName,
+      errors: [{ msg: "Wrong Admin password" }],
+    });
   },
 ];
 
@@ -97,7 +106,7 @@ async function postDeleteCategory(req, res) {
     return res.redirect("/");
   }
 
-  return res.render("deleteCategoryConfirmation", {
+  res.render("deleteCategoryConfirmation", {
     categoryId: categoryId,
     title: "Confirm Category Deletion",
     errors: [{ msg: "Wrong admin password" }],
