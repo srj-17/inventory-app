@@ -24,7 +24,7 @@
                         <div class="category-change-name">
                             <a href="/update/<%= category.id %>">Change name</a>
                         </div>
-                        <form method="POST" action="/delete/<%= category.id %>">
+                        <form method="GET" action="/delete/<%= category.id %>">
                             <button type="submit">Delete Category</button>
                         </form>
                     </div>
