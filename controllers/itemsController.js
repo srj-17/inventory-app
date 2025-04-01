@@ -60,7 +60,7 @@ const postUpdateItem = [
   itemsValidator,
   async (req, res) => {
     const errors = validationResult(req);
-    const { categoryId } = req.params;
+    const { categoryId, itemId } = req.params;
     if (!errors.isEmpty()) {
       return res.status(400).render("updateItemForm", {
         title: "Update Title",
@@ -70,10 +70,20 @@ const postUpdateItem = [
         errors: errors.array(),
       });
     }
-    const { itemName } = req.body;
+    const { itemName, pass } = req.body;
 
-    await updateItemName(itemId, itemName);
-    res.redirect(`/${categoryId}/items`);
+    if (pass === "supersecretpassword") {
+      await updateItemName(itemId, itemName);
+      return res.redirect(`/${categoryId}/items`);
+    }
+
+    return res.status(400).render("updateItemForm", {
+      title: "Update Title",
+      categoryId: categoryId,
+      itemName: itemName,
+      itemId: itemId,
+      errors: [{ msg: "Wrong admin password" }],
+    });
   },
 ];
 

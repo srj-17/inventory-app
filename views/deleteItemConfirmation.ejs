@@ -4,6 +4,7 @@
         <%- include("partials/heading") %>
         <%- include("partials/errors") %>
         <form 
+            class="user-form"
             method="POST" 
             action="/<%= categoryId %>/items/delete/<%= itemId %>"
             >
@@ -11,7 +12,9 @@
                 <label for="pass">Password: </label>
                 <input type="password" name="pass" >
             </div>
-            <button type="submit">Confirm deletion</button>
+            <div class="submit-btn-container">
+                <button type="submit">Confirm deletion</button>
+            </div>
         </form>
     </body>
 </html>
