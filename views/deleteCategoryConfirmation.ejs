@@ -1,0 +1,20 @@
+<html>
+    <%- include("partials/head", {title: title}) %>
+    <body>
+        <%- include("partials/heading") %>
+        <%- include("partials/errors") %>
+        <form 
+            class="user-form"
+            method="POST" 
+            action="/delete/<%= categoryId %>"
+            >
+            <div class="input">
+                <label for="pass">Password: </label>
+                <input type="password" name="pass" >
+            </div>
+            <div class="submit-btn-container">
+                <button type="submit">Confirm deletion</button>
+            </div>
+        </form>
+    </body>
+</html>

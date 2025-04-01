@@ -81,19 +81,35 @@ const postUpdateCategory = [
 
 async function postDeleteCategory(req, res) {
   const { categoryId } = req.params;
+  const { pass } = req.body;
   const items = await getItemsWithId(categoryId);
-  const categories = await getAllCategories();
 
   if (items.length !== 0) {
-    return res.render("categories", {
-      title: "Categories",
-      categories: categories,
+    return res.render("deleteCategoryConfirmation", {
+      categoryId: categoryId,
+      title: "Confirm Category Deletion",
       errors: [{ msg: "Cannot delete category with items in it" }],
     });
   }
 
-  await deleteCategory(categoryId);
-  res.redirect("/");
+  if (pass === "supersecretpassword") {
+    await deleteCategory(categoryId);
+    return res.redirect("/");
+  }
+
+  return res.render("deleteCategoryConfirmation", {
+    categoryId: categoryId,
+    title: "Confirm Category Deletion",
+    errors: [{ msg: "Wrong admin password" }],
+  });
+}
+
+function getDeleteCategory(req, res) {
+  const { categoryId } = req.params;
+  res.render("deleteCategoryConfirmation", {
+    title: "Confirm category deletion",
+    categoryId: categoryId,
+  });
 }
 
 module.exports = {
@@ -103,4 +119,5 @@ module.exports = {
   getUpdateCategory,
   postUpdateCategory,
   postDeleteCategory,
+  getDeleteCategory,
 };
