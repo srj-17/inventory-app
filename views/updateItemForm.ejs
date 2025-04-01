@@ -3,15 +3,19 @@
     <body>
         <%- include("partials/heading") %>
         <%- include("partials/errors") %>
-        <form method="POST" action="/<%= categoryId %>/items/update/<%= itemId %>">
-            <label for="itemName">Item Name:</label>
-            <input 
+        <form class="user-form" method="POST" action="/<%= categoryId %>/items/update/<%= itemId %>">
+            <div class="input">
+                <label for="itemName">Item Name:</label>
+                <input 
                 id="itemName" 
                 type="text" 
                 name="itemName" 
                 value=<%= itemName %> 
-            />
-            <button type="submit">Change Name</button>
+                >
+            </div>
+            <div class="submit-btn-container">
+                <button type="submit">Change Name</button>
+            </div>
         </form>
     </body>
 </html>

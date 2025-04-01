@@ -23,6 +23,7 @@ h5 {
 
   --std-seperator-width: 2px;
   --card-dim: 250px;
+  --std-shadow: 0 0 2px white;
 }
 
 body {
@@ -53,6 +54,7 @@ heading::after {
 
   bottom: 0;
   transform: translateY(50%);
+  box-shadow: var(--std-shadow);
 }
 
 h1 {
@@ -69,7 +71,8 @@ main {
   gap: 16px;
 }
 
-.add-new-category-container {
+.add-new-category-container,
+.create-new-item-container {
   font-size: 1.5rem;
   width: 100%;
   display: flex;
@@ -83,7 +86,8 @@ main {
   grid-template-columns: repeat(auto-fill, minmax(var(--card-dim), 1fr));
 }
 
-.category-container {
+.category-container,
+.item-container {
   width: 100%;
   min-height: var(--card-dim);
   padding: 8px;
@@ -93,9 +97,12 @@ main {
 
   border: 2px solid var(--accent);
   border-radius: 8px;
+
+  box-shadow: var(--std-shadow);
 }
 
-.category-name-container {
+.category-name-container,
+.item-name-container {
   flex: 1;
   display: grid;
   place-content: stretch;
@@ -104,19 +111,21 @@ main {
   overflow: hidden;
 }
 
-.category-name {
+.category-name,
+.item-name {
   display: grid;
   place-items: center;
 
   font-size: 3rem;
-  transition: transform 0.5s;
+  text-align: center;
 }
 
-.category-name:hover {
-  transform: scale(1.1);
+.item-name {
+  cursor: default;
 }
 
-.category-name-bg {
+.category-name-bg,
+.item-name-bg {
   position: absolute;
   cursor: default;
   z-index: -1;
@@ -131,16 +140,97 @@ main {
   rotate: -45deg;
 }
 
-.category-seperator {
+.category-seperator,
+.item-seperator {
   height: 2px;
   background: var(--accent);
+  box-shadow: var(--std-shadow);
 }
 
-.category-options {
+.category-options,
+.item-options {
   display: grid;
   grid-auto-flow: column;
+  place-items: center;
 
   padding: 10px 0;
+}
+
+.category-options button {
+  padding: 3px 9px;
+  background: var(--primary);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+
+  transition: transform 0.2s;
+}
+
+.category-options .category-change-name,
+.item-options .item-change-name {
+  transition: transform 0.2s;
+}
+
+.category-options .category-change-name:hover,
+.item-options .item-change-name:hover {
+  transform: scale(1.1);
+}
+
+.category-options .category-change-name:active,
+.item-options .item-change-name:active {
+  transform: scale(0.9);
+}
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.user-form .input {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input label {
+  font-weight: bold;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+}
+
+.input input {
+  padding: 5px 20px;
+  font-size: inherit;
+  box-shadow: var(--std-shadow);
+  border: 2px solid var(--accent);
+  border-radius: 5px;
+}
+
+.input input:invalid {
+  border: 2px solid var(--accent);
+}
+
+.user-form button {
+  background: var(--primary);
+  padding: 5px 20px;
+  font-size: inherit;
+  font-weight: bold;
+  border: 2px solid var(--accent);
+  border-radius: 5px;
+
+  transition: transform 0.3s;
+}
+
+.user-form .submit-btn-container {
+  padding: 5px 20px;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+button:click {
+  transform: scale(0.9);
 }
 
 li {
@@ -152,9 +242,11 @@ a {
 }
 
 a:hover {
-  color: var(--accent);
+  transform: scale(1.1);
+  transition: transform 0.2s;
 }
 
 a:active {
-  color: var(--secondary);
+  transform: scale(0.9);
+  color: var(--accent);
 }

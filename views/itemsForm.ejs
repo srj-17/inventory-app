@@ -3,10 +3,16 @@
     <body>
         <%- include("partials/heading") %>
         <%- include("partials/errors") %>
-        <form method="POST" action="/<%= categoryId %>/items/create">
-            <label for="itemName">Name the new item: </label>
-            <input type="text" id="itemName" name="itemName" required />
-            <button type="submit">Add Item</button>
+        <form class="user-form" method="POST" action="/<%= categoryId %>/items/create">
+            <div class="input">
+                <label for="itemName">Name the new item: </label>
+                <input type="text" id="itemName" name="itemName" required />
+            </div>
+            <div class="submit-btn-container">
+                <button type="submit">
+                    Add Item
+                </button>
+            </div>
         </form>
     </body>
 </html>
