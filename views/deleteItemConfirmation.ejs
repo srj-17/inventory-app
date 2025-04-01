@@ -1,0 +1,17 @@
+<html>
+    <%- include("partials/head", {title: title}) %>
+    <body>
+        <%- include("partials/heading") %>
+        <%- include("partials/errors") %>
+        <form 
+            method="POST" 
+            action="/<%= categoryId %>/items/delete/<%= itemId %>"
+            >
+            <div class="input">
+                <label for="pass">Password: </label>
+                <input type="password" name="pass" >
+            </div>
+            <button type="submit">Confirm deletion</button>
+        </form>
+    </body>
+</html>

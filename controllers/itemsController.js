@@ -79,9 +79,29 @@ const postUpdateItem = [
 
 async function postDeleteItem(req, res) {
   const { itemId, categoryId } = req.params;
-  await deleteItem(itemId);
+  const { pass } = req.body;
 
-  return res.redirect(`/${categoryId}/items`);
+  if (pass === "supersecretpassword") {
+    await deleteItem(itemId);
+    return res.redirect(`/${categoryId}/items`);
+  }
+
+  res.render("deleteItemConfirmation", {
+    title: "Confirm deletion",
+    itemId: itemId,
+    categoryId: categoryId,
+    errors: [{ msg: "Incorrect admin password" }],
+  });
+}
+
+async function getDeleteItem(req, res) {
+  const { itemId, categoryId } = req.params;
+
+  res.render("deleteItemConfirmation", {
+    title: "Confirm deletion",
+    itemId: itemId,
+    categoryId: categoryId,
+  });
 }
 
 module.exports = {
@@ -91,4 +111,5 @@ module.exports = {
   getUpdateItem,
   postUpdateItem,
   postDeleteItem,
+  getDeleteItem,
 };
