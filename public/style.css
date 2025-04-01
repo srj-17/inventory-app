@@ -156,7 +156,8 @@ main {
   padding: 10px 0;
 }
 
-.category-options button {
+.category-options button,
+.item-options button {
   padding: 3px 9px;
   background: var(--primary);
   border: 2px solid var(--accent);
